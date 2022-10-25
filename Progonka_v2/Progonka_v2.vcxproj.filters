@@ -133,6 +133,9 @@
     <Text Include="MultiplyingGridsTestSpherical_input.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="MultiplyingGridsTestSpherical_output.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="plot.png">

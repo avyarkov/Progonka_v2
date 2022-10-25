@@ -178,6 +178,7 @@
     <Text Include="EquationTest_input.txt" />
     <Text Include="DataGridTest_output.txt" />
     <Text Include="ExactTest_WolframLines.txt" />
+    <Text Include="MultiplyingGridsTestSpherical_output.txt" />
     <Text Include="MultiplyingGridsTest_input.txt" />
     <Text Include="MultiplyingGridsTest_output.txt" />
     <Text Include="MultiplyingGridsTestSpherical_input.txt" />
