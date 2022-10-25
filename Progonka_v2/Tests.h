@@ -9,3 +9,5 @@ void runExactTest();
 void runEquationTest();
 
 void runMultiplyingGridsTest();
+
+void runMultiplyingGridsTestSpherical();

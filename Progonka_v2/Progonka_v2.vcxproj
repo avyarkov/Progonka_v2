@@ -152,6 +152,7 @@
     <ClCompile Include="ExactTest.cpp" />
     <ClCompile Include="EquationTest.cpp" />
     <ClCompile Include="MultiplyingGridsTest.cpp" />
+    <ClCompile Include="MultiplyingGridsTestSpherical.cpp" />
     <ClCompile Include="SphericalCase.cpp" />
     <ClCompile Include="supportLib.cpp" />
   </ItemGroup>
@@ -179,6 +180,7 @@
     <Text Include="ExactTest_WolframLines.txt" />
     <Text Include="MultiplyingGridsTest_input.txt" />
     <Text Include="MultiplyingGridsTest_output.txt" />
+    <Text Include="MultiplyingGridsTestSpherical_input.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="plot.png" />

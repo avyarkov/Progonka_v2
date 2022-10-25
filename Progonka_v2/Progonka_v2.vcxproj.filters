@@ -60,6 +60,9 @@
     <ClCompile Include="MultiplyingGridsTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MultiplyingGridsTestSpherical.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Progonka.h">
@@ -125,6 +128,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="ExactTest_WolframLines.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MultiplyingGridsTestSpherical_input.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
