@@ -20,7 +20,9 @@ int main() {
 
 	//runMultiplyingGridsTest();
 
-	runMultiplyingGridsTestSpherical();
+	//runMultiplyingGridsTestSpherical();
+
+	runQuadratureTest();
 
 	std::ifstream f_in("DataGridTest_input.txt");
 	std::ofstream f_out("DataGridTest_output.txt");

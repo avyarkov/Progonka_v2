@@ -153,6 +153,8 @@
     <ClCompile Include="EquationTest.cpp" />
     <ClCompile Include="MultiplyingGridsTest.cpp" />
     <ClCompile Include="MultiplyingGridsTestSpherical.cpp" />
+    <ClCompile Include="Quadrature.cpp" />
+    <ClCompile Include="QuadratureTest.cpp" />
     <ClCompile Include="SphericalCase.cpp" />
     <ClCompile Include="supportLib.cpp" />
   </ItemGroup>
@@ -162,6 +164,7 @@
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="MyPlot.h" />
     <ClInclude Include="pbPlots.hpp" />
+    <ClInclude Include="Quadrature.h" />
     <ClInclude Include="supportLib.hpp" />
     <ClInclude Include="Tests.h" />
     <ClInclude Include="PlaneCase.h" />
@@ -182,6 +185,7 @@
     <Text Include="MultiplyingGridsTest_input.txt" />
     <Text Include="MultiplyingGridsTest_output.txt" />
     <Text Include="MultiplyingGridsTestSpherical_input.txt" />
+    <Text Include="Quadrature_Gauss–Legendre.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="plot.png" />

@@ -11,3 +11,5 @@ void runEquationTest();
 void runMultiplyingGridsTest();
 
 void runMultiplyingGridsTestSpherical();
+
+void runQuadratureTest();
