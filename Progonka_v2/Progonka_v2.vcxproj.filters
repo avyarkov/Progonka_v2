@@ -22,6 +22,12 @@
     <Filter Include="Header Files\pbPlots">
       <UniqueIdentifier>{10a30913-32c4-45be-b315-2c64b386eb15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\SpecificTests">
+      <UniqueIdentifier>{a9d838af-bf48-40ed-b2e8-6fb2f9592315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Qasidiffusion">
+      <UniqueIdentifier>{862ac331-55da-4a70-a961-b274ac498143}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,6 +84,9 @@
     <ClCompile Include="QuadratureTest.cpp">
       <Filter>Source Files\Tests</Filter>
     </ClCompile>
+    <ClCompile Include="Quasidiffusion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Progonka.h">
@@ -113,12 +122,12 @@
     <ClInclude Include="pbPlots.hpp">
       <Filter>Header Files\pbPlots</Filter>
     </ClInclude>
+    <ClInclude Include="Quasidiffusion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="DataTestPlane_input.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="EquationTest_output.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="DataTestPlane_output.txt">
@@ -130,22 +139,10 @@
     <Text Include="DataTestSpherical_input.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="EquationTest_input.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="DataGridTest_input.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="DataGridTest_output.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="MultiplyingGridsTest_input.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="MultiplyingGridsTest_output.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="ExactTest_WolframLines.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="MultiplyingGridsTestSpherical_input.txt">
@@ -156,6 +153,21 @@
     </Text>
     <Text Include="Quadrature_Gauss–Legendre.txt">
       <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="EquationTest_input.txt">
+      <Filter>Resource Files\SpecificTests</Filter>
+    </Text>
+    <Text Include="EquationTest_output.txt">
+      <Filter>Resource Files\SpecificTests</Filter>
+    </Text>
+    <Text Include="ExactTest_WolframLines.txt">
+      <Filter>Resource Files\SpecificTests</Filter>
+    </Text>
+    <Text Include="QuasidiffusionDataGrid.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
+    </Text>
+    <Text Include="EvenOddDataGrid.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

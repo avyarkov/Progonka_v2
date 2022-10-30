@@ -1,4 +1,4 @@
-#include <fstream>
+#include <iostream>
 #include "Coeff.h"
 #include "FileIO.h"
 
@@ -14,7 +14,7 @@ Coeff::Coeff(int num) {
 	Rl = new double[size];
 }
 
-void Coeff::print(std::ofstream* f_out) {
+void Coeff::print(std::ostream* f_out) {
 	*f_out << "Coeff {\n";
 	writeArray(el, in, out + 1, f_out);
 	*f_out << "\n";
@@ -28,4 +28,9 @@ void Coeff::print(std::ofstream* f_out) {
 	*f_out << "\n";
 	writeArray(Rr, in, out + 1, f_out);
 	*f_out << "\n}\n";
+}
+
+void Coeff::updateBoundaries(double A_in, double A_out) {
+	kl[in] = A_in;
+	kr[out + 1] = A_out;
 }

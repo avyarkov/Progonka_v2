@@ -1,5 +1,5 @@
 #pragma once
-#include <fstream>
+#include <iostream>
 
 struct Coeff {
 	const int in = 1;	// start index in the array; is arbitrary and can be 1 to INF, because in Progonka() index (in - 1) is used for convenience
@@ -15,6 +15,8 @@ struct Coeff {
 	double* Rr;
 
 	Coeff(int num);
-	void print(std::ofstream* f_out);
+	void print(std::ostream* f_out);
+
+	void updateBoundaries(double A_in, double A_out);
 };
 

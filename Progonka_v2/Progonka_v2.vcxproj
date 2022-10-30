@@ -155,6 +155,7 @@
     <ClCompile Include="MultiplyingGridsTestSpherical.cpp" />
     <ClCompile Include="Quadrature.cpp" />
     <ClCompile Include="QuadratureTest.cpp" />
+    <ClCompile Include="Quasidiffusion.cpp" />
     <ClCompile Include="SphericalCase.cpp" />
     <ClCompile Include="supportLib.cpp" />
   </ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="MyPlot.h" />
     <ClInclude Include="pbPlots.hpp" />
     <ClInclude Include="Quadrature.h" />
+    <ClInclude Include="Quasidiffusion.h" />
     <ClInclude Include="supportLib.hpp" />
     <ClInclude Include="Tests.h" />
     <ClInclude Include="PlaneCase.h" />
@@ -172,20 +174,20 @@
     <ClInclude Include="SphericalCase.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="DataGridTest_input.txt" />
     <Text Include="EquationTest_output.txt" />
     <Text Include="DataTestSpherical_output.txt" />
     <Text Include="DataTestPlane_input.txt" />
     <Text Include="DataTestPlane_output.txt" />
     <Text Include="DataTestSpherical_input.txt" />
     <Text Include="EquationTest_input.txt" />
-    <Text Include="DataGridTest_output.txt" />
     <Text Include="ExactTest_WolframLines.txt" />
     <Text Include="MultiplyingGridsTestSpherical_output.txt" />
     <Text Include="MultiplyingGridsTest_input.txt" />
     <Text Include="MultiplyingGridsTest_output.txt" />
     <Text Include="MultiplyingGridsTestSpherical_input.txt" />
     <Text Include="Quadrature_Gauss–Legendre.txt" />
+    <Text Include="QuasidiffusionDataGrid.txt" />
+    <Text Include="EvenOddDataGrid.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="plot.png" />

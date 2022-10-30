@@ -1,4 +1,4 @@
-#include <fstream>
+#include <iostream>
 
 #pragma once
 
@@ -15,12 +15,12 @@ struct DataGrid {
 	double B_in, B_out;
 
 	DataGrid(int num);
-	void print(std::ofstream* f_out);
+	static int sizeFromOut(int out);
+	void print(std::ostream* f_out);
 
 	void updateSigma();
 	void updateDtau();
 
 	DataGrid multiplied(int k);	// k > 0
-
 };
 
