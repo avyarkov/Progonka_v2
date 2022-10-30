@@ -1,19 +1,19 @@
-#include <fstream>
+#include <iostream>
 
 // NB! Boundaries: [inclusive, inclusive]
-void readArray(double* arr, int in, int out, std::ifstream* f_in) {
+void readArray(double* arr, int in, int out, std::istream* f_in) {
 	for (int i = in; i <= out; i++) {
 		*f_in >> arr[i];
 	}
 }
 
-void writeArray(double* arr, int in, int out, std::ofstream* f_out) {
+void writeArray(double* arr, int in, int out, std::ostream* f_out) {
 	for (int i = in; i <= out; i++) {
 		*f_out << arr[i] << " ";
 	}
 }
 
-void writeArrayWithTabs(double* arr, int in, int out, std::ofstream* f_out) {
+void writeArrayWithTabs(double* arr, int in, int out, std::ostream* f_out) {
 	for (int i = in; i <= out; i++) {
 		*f_out << arr[i] << "\t";
 	}
