@@ -18,7 +18,9 @@ int main() {
 
 	//runEquationTest();
 
-	runMultiplyingGridsTest();
+	//runMultiplyingGridsTest();
+
+	runMultiplyingGridsTestSpherical();
 
 	std::ifstream f_in("DataGridTest_input.txt");
 	std::ofstream f_out("DataGridTest_output.txt");
