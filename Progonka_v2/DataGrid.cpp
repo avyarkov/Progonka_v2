@@ -18,6 +18,10 @@ DataGrid::DataGrid(int num) {
 	B_out = -566;
 }
 
+int DataGrid::sizeFromOut(int out) {
+	return out + 2;
+}
+
 void DataGrid::print(std::ostream* f_out) {
 	*f_out << "DataGrid {\n";
 	*f_out << "num=" << num << ", in=" << in << ", out=" << out << ";";
@@ -41,11 +45,9 @@ void DataGrid::print(std::ostream* f_out) {
 }
 
 void DataGrid::updateSigma() {
-	if (sigma == nullptr) {
-		sigma = new double[size];
-		for (int i = in + 1; i <= out; i++) {
-			sigma[i] = sqrt(abs(sigma_0[i]) * sigma_1[i]);
-		}
+	sigma = new double[size];
+	for (int i = in + 1; i <= out; i++) {
+		sigma[i] = sqrt(abs(sigma_0[i]) * sigma_1[i]);
 	}
 }
 
@@ -82,6 +84,62 @@ DataGrid DataGrid::multiplied(int k) {
 	return res;
 }
 
-int DataGrid::sizeFromOut(int out) {
-	return out + 2;
+DataGrid DataGrid::withAddedSources(double* Add_P, double* Add_M) {
+	updateSigma();
+	updateDtau();
+	DataGrid res = DataGrid(num);
+	res.sigma = new double[res.size];
+	res.r[in] = r[in];
+	for (int i = in + 1; i <= out; i++) {
+		res.r[i] = r[i];
+		res.dtau[i] = dtau[i];
+		res.sigma_0[i] = sigma_0[i];
+		res.sigma_1[i] = sigma_1[i];
+		res.sigma[i] = sigma[i];
+		res.T_P[i] = T_P[i] + Add_P[i];
+		res.T_M[i] = T_M[i] + Add_M[i];
+	}
+	res.B_in = B_in;
+	res.B_out = B_out;
+	return res;
 }
+
+DataGrid DataGrid::toCharacteristics(double mu) {
+	updateSigma();
+	updateDtau();
+	DataGrid res = DataGrid(num);
+	res.r[in] = r[in];
+	for (int i = in + 1; i <= out; i++) {
+		res.r[i] = res.r[i - 1] + (r[i] - r[i - 1]) / abs(mu);
+		res.sigma_0[i] = sigma_0[i];
+		res.sigma_1[i] = sigma_1[i];
+		res.T_P[i] = T_P[i];
+		res.T_M[i] = T_M[i];
+	}
+	res.B_in = B_in;
+	res.B_out = B_out;
+	res.updateSigma();
+	res.updateDtau();
+	return res;
+}
+
+DataGrid DataGrid::withDividedSigma0(double* D) {
+	updateSigma();
+	updateDtau();
+	DataGrid res = DataGrid(num);
+	res.sigma = new double[res.size];
+	for (int i = in; i <= out; i++) {
+		res.r[i] = r[i];
+		res.dtau[i] = dtau[i];
+		res.sigma_0[i] = sigma_0[i] / D[i];
+		res.sigma_1[i] = sigma_1[i];
+		res.T_P[i] = T_P[i];
+		res.T_M[i] = T_M[i];
+	}
+	res.updateSigma();
+	res.updateDtau();
+	res.B_in = B_in;
+	res.B_out = B_out;
+	return res;
+}
+

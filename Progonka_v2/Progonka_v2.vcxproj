@@ -188,6 +188,7 @@
     <Text Include="Quadrature_Gauss–Legendre.txt" />
     <Text Include="QuasidiffusionDataGrid.txt" />
     <Text Include="EvenOddDataGrid.txt" />
+    <Text Include="Quasidiffusion_output.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="plot.png" />

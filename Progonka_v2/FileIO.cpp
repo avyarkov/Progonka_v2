@@ -16,6 +16,11 @@ void writeArray(double* arr, int in, int out, std::ostream* f_out) {
 	}
 }
 
+void writeArrayEndl(double* arr, int in, int out, std::ostream* f_out) {
+	writeArray(arr, in, out, f_out);
+	*f_out << std::endl;
+}
+
 void writeArrayWithTabs(double* arr, int in, int out, std::ostream* f_out) {
 	for (int i = in; i <= out; i++) {
 		*f_out << arr[i] << "\t";

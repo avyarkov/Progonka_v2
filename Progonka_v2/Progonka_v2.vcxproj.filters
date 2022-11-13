@@ -169,6 +169,9 @@
     <Text Include="EvenOddDataGrid.txt">
       <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
+    <Text Include="Quasidiffusion_output.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="plot.png">

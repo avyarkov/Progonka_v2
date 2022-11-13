@@ -22,5 +22,9 @@ struct DataGrid {
 	void updateDtau();
 
 	DataGrid multiplied(int k);	// k > 0
+	
+	DataGrid withAddedSources(double* Add_P, double* Add_M);
+	DataGrid toCharacteristics(double mu);
+	DataGrid withDividedSigma0(double* D);
 };
 
