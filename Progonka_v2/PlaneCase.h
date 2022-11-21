@@ -3,3 +3,5 @@
 #include "Coeff.h"
 
 Coeff getPlaneCoefficients(DataGrid dg);
+
+Coeff getPlaneCoefficients(DataGridNodeSources dg);

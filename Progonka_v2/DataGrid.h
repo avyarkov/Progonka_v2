@@ -1,6 +1,5 @@
-#include <iostream>
-
 #pragma once
+#include <iostream>
 
 struct DataGrid {
 	const int in = 1;	// start index in the array; is arbitrary and can be 1 to INF, because in Progonka() index (in - 1) is used for convenience
@@ -14,6 +13,7 @@ struct DataGrid {
 
 	double B_in, B_out;
 
+	DataGrid();
 	DataGrid(int num);
 	static int sizeFromOut(int out);
 	void print(std::ostream* f_out);
@@ -26,5 +26,14 @@ struct DataGrid {
 	DataGrid withAddedSources(double* Add_P, double* Add_M);
 	DataGrid toCharacteristics(double mu);
 	DataGrid withDividedSigma0(double* D);
+};
+
+struct DataGridNodeSources : public DataGrid {
+	DataGridNodeSources(int num);
+	void print(std::ostream* f_out);
+	DataGridNodeSources multiplied(int k);
+	DataGridNodeSources withAddedSources(double* Add_P, double* Add_M);
+	DataGridNodeSources toCharacteristics(double mu);
+	DataGridNodeSources withDividedSigma0(double* D);
 };
 

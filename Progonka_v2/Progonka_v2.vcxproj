@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Coeff.cpp" />
     <ClCompile Include="DataGrid.cpp" />
+    <ClCompile Include="DataGridNodeSources.cpp" />
     <ClCompile Include="DataTestPlane.cpp" />
     <ClCompile Include="FileIO.cpp" />
     <ClCompile Include="main.cpp" />

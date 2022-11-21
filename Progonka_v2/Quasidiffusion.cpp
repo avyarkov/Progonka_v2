@@ -34,19 +34,17 @@ void runQuasidiffusion() {
 
 	const double w_0 = 1.0, w_1 = 0.5, w_2 = 0.2;
 	const double nu = 1;
-	DataGrid quasiDG = readDataGrid("QuasidiffusionDataGrid.txt");
+	DataGridNodeSources quasiDG = readDataGridNodeSources("QuasidiffusionDataGrid.txt");
 	quasiDG.updateSigma();
 	quasiDG.updateDtau();
-	//quasiDG.print(&fout);
-	DataGrid eoDG = readDataGrid("EvenOddDataGrid.txt");
+	DataGridNodeSources eoDG = readDataGridNodeSources("EvenOddDataGrid.txt");
 	eoDG.updateSigma();
 	eoDG.updateDtau();
 
 	int num = quasiDG.num;
 	if (num != eoDG.num) { cout << "Incorrect input: quasiDG and eoDg are of different sizes!"; exit(239); }
 	int size = quasiDG.size, in = quasiDG.in, out = quasiDG.out;
-	double* Sigma_s = new double[size];
-	for (int i = in + 1; i <= out; i++) { Sigma_s[i] = quasiDG.sigma_1[i] - quasiDG.sigma_0[i]; }
+	double Sigma_s = quasiDG.sigma_1[in + 1] - quasiDG.sigma_0[in + 1];
 	double* D = new double[size];
 	for (int i = in; i <= out; i++) { D[i] = 1.0 / 3; }
 	double* gamma = countGamma(D, in, out);
@@ -54,38 +52,48 @@ void runQuasidiffusion() {
 	int numberOfIterations = 5;
 	Quadrature quadrature = Quadrature("Quadrature_GaussЦLegendre.txt");
 	int order = 6;
+	int qin = order / 2, qout = order - 1;
 	double* root = quadrature.rootsOfOrder(order);
 	double* weight = quadrature.weightsOfOrder(order);
 	for (int it = 0; it < numberOfIterations; it++) {
-		// solve QuasidiffusionEquations
-		DataGrid curQuasiDg = quasiDG.withDividedSigma0(D);
+		if (it == 1) {
+			cout << "d";
+		}
+		// solve Quasidiffusion equations
+		double* auxD = new double[size];
+		for (int i = in + 1; i <= out; i++) { auxD[i] = (D[i - 1] + D[i]) / 2; }
+		DataGridNodeSources curQuasiDg = quasiDG.withDividedSigma0(auxD);
 		curQuasiDg.updateSigma();
 		curQuasiDg.updateDtau();
 		Coeff quasiCoeff = getPlaneCoefficients(curQuasiDg);
 		quasiCoeff.updateBoundaries(A_in, A_out);
+		quasiCoeff.print(&cout);
+
 		double* PSI_0 = new double[size], * PSI_1 = new double[size];
 		Progonka(in, out, quasiCoeff, PSI_0, PSI_1);
 		writeArrayEndl(PSI_0, in, out, &fout);
 
+		// solve Even-Odd equations for positive quadrature roots
 		double** F_P = new double* [order], ** F_M = new double* [order];
-		double** phi_p = new double* [order], ** phi_m = new double* [order], ** phi = new double* [order];
-		for (int k = 0; k < order; k++) {
+		double** phi_p = new double* [order], ** phi_m = new double* [order];
+		for (int k = qin; k <= qout; k++) {
 			F_P[k] = new double[size];
 			F_M[k] = new double[size];
 			phi_p[k] = new double[size];
 			phi_m[k] = new double[size];
-			phi[k] = new double[size];
 			for (int i = in; i <= out; i++) {
 				F_P[k][i] = calcF_P(root[k], D[i], PSI_0[i], w_0, w_2);
 				F_M[k][i] = calcF_M(root[k], PSI_1[i], w_1);
 			}
 			double* Add_P = new double[size], * Add_M = new double[size];
-			for (int i = in + 1; i <= out; i++) {
-				Add_P[i] = nu * Sigma_s[i] * F_P[k][i];
-				Add_M[i] = nu * Sigma_s[i] * F_M[k][i];
+			// TODO добавки к источиками прив€заны к узлам, а заданные источники - к €чейками
+			// »справить, помен€ть расчЄт коэффициентов в getPlaneCoefficients
+			for (int i = in; i <= out; i++) {
+				Add_P[i] = nu * Sigma_s * F_P[k][i];
+				Add_M[i] = nu * Sigma_s * F_M[k][i];
 			}
 			// TODO check negative roots
-			DataGrid curEODG = eoDG.toCharacteristics(root[k]).withAddedSources(Add_P, Add_M);
+			DataGridNodeSources curEODG = eoDG.toCharacteristics(root[k]).withAddedSources(Add_P, Add_M);
 			curEODG.updateSigma();
 			curEODG.updateDtau();
 			Coeff curCoeff = getPlaneCoefficients(curEODG);
@@ -93,28 +101,27 @@ void runQuasidiffusion() {
 			Progonka(in, out, curCoeff, phi_p[k], phi_m[k]);
 			writeArrayEndl(phi_p[k], in, out, &fout);
 			writeArrayEndl(phi_m[k], in, out, &fout);
-			for (int i = in; i <= out; i++) { phi[k][i] = phi_p[k][i] + phi_m[k][i]; }
 		}
 		for (int i = in; i <= out; i++) {
 			double* f2 = new double[order];
 			double* curphi = new double[order];
-			for (int k = 0; k < order; k++) {
+			for (int k = qin; k <= qout; k++) {
 				curphi[k] = phi_p[k][i];
 				f2[k] = root[k] * root[k] * curphi[k];
 			}
-			double integral0 = quadrature.integrate(order, curphi);
-			double integral2 = quadrature.integrate(order, f2);
+			double integral0 = 2 * quadrature.integrateFromTo(order, qin, qout, curphi);
+			double integral2 = 2 * quadrature.integrateFromTo(order, qin, qout, f2);
 			D[i] = integral2 / integral0;
 			if (i == in) {
 				double* f1 = new double[order];
-				for (int k = 0; k < order; k++) { f1[k] = abs(root[k]) * curphi[k]; }
-				double integral1 = quadrature.integrate(order, f1);
+				for (int k = qin; k <= qout; k++) { f1[k] = abs(root[k]) * curphi[k]; }
+				double integral1 = 2 * quadrature.integrateFromTo(order, qin, qout, f1);
 				A_in = integral1 / integral2;
 			}
 			if (i == out) {
 				double* f1 = new double[order];
-				for (int k = 0; k < order; k++) { f1[k] = abs(root[k]) * curphi[k]; }
-				double integral1 = quadrature.integrate(order, f1);
+				for (int k = qin; k <= qout; k++) { f1[k] = abs(root[k]) * curphi[k]; }
+				double integral1 = 2 * quadrature.integrateFromTo(order, qin, qout, f1);
 				A_out = integral1 / integral2;
 			}
 		}

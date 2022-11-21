@@ -28,8 +28,12 @@ double* Quadrature::weightsOfOrder(int order) {
 }
 
 double Quadrature::integrate(int order, double* functionValues) {
+	return integrateFromTo(order, 0, order - 1, functionValues);
+}
+
+double Quadrature::integrateFromTo(int order, int from, int to, double* functionValues) {
 	double res = 0;
-	for (int i = 0; i < order; i++) {
+	for (int i = from; i <= to; i++) {
 		res += weight[order][i] * functionValues[i];
 	}
 	return res;

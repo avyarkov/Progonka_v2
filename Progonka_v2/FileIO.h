@@ -12,5 +12,7 @@ void writeArrayEndl(double* arr, int in, int out, std::ostream* f_out);
 void writeArrayWithTabs(double* arr, int in, int out, std::ostream* f_out);
 
 DataGrid readDataGrid(std::istream* f_in);
-
 DataGrid readDataGrid(std::string fileName);
+
+DataGridNodeSources readDataGridNodeSources(std::istream* f_in);
+DataGridNodeSources readDataGridNodeSources(std::string fileName);

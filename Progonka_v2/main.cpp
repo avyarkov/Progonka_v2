@@ -23,7 +23,7 @@ int main() {
 
 	//runMultiplyingGridsTestSpherical();
 
-	runQuadratureTest();
+	//runQuadratureTest();
 
 	runQuasidiffusion();
 }

@@ -56,3 +56,33 @@ DataGrid readDataGrid(std::string fileName) {
 	f_in.close();
 	return dg;
 }
+
+DataGridNodeSources readDataGridNodeSources(std::istream* f_in) {
+	int num;
+	*f_in >> num;
+	DataGridNodeSources dg = DataGridNodeSources(num);
+	int in = dg.in, out = dg.out;
+	std::string curToken;
+	*f_in >> curToken;
+	readArray(dg.r, in, out, f_in);
+	*f_in >> curToken;
+	readArray(dg.sigma_0, in + 1, out, f_in);
+	*f_in >> curToken;
+	readArray(dg.sigma_1, in + 1, out, f_in);
+	dg.updateSigma();
+	dg.updateDtau();
+	*f_in >> curToken;
+	readArray(dg.T_P, in, out, f_in);
+	*f_in >> curToken;
+	readArray(dg.T_M, in, out, f_in);
+	*f_in >> curToken;
+	*f_in >> dg.B_in >> dg.B_out;
+	return dg;
+}
+
+DataGridNodeSources readDataGridNodeSources(std::string fileName) {
+	std::ifstream f_in(fileName);
+	DataGridNodeSources dg = readDataGridNodeSources(&f_in);
+	f_in.close();
+	return dg;
+}
