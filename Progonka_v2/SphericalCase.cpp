@@ -1,5 +1,5 @@
 #include <cmath>
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 #include "Coeff.h"
 
 /*
@@ -9,7 +9,7 @@ Input boundary conditions: double B_in, double B_out; (considering A = 3/2 for n
 Resulting coefficients are written to: el, er, kl, kr, Rl, Rr
 Spherical case, g = 1
 */
-Coeff getSphericalCoefficients(DataGrid dg, double* gamma) {
+Coeff getSphericalCoefficients(OldDataGrid dg, double* gamma) {
 	int g = 1; // considering g = 1: spherical case
 	int in = dg.in, out = dg.out;
 	dg.updateSigma();
@@ -46,7 +46,7 @@ Coeff getSphericalCoefficients(DataGrid dg, double* gamma) {
 	return coeff;
 }
 
-void leftSphericalSupplement(DataGrid dg, double* gamma, Coeff coeff, double* PHI_P, double* PHI_M) {
+void leftSphericalSupplement(OldDataGrid dg, double* gamma, Coeff coeff, double* PHI_P, double* PHI_M) {
 	int g = 1; // considering g = 1: spherical case
 	int in = dg.in;
 	dg.updateSigma();

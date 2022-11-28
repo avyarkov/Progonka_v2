@@ -1,7 +1,7 @@
 #pragma once
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 #include "Coeff.h"
 
-Coeff getPlaneCoefficients(DataGrid dg);
+Coeff getPlaneCoefficients(OldDataGrid dg);
 
-Coeff getPlaneCoefficients(DataGridNodeSources dg);
+Coeff getPlaneCoefficients(OldDataGridNodeSources dg);

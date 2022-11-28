@@ -2,7 +2,7 @@
 #include <string>
 #include "FileIO.h"
 #include "Progonka.h"
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 #include "MyPlot.h"
 #include "SphericalCase.h"
 
@@ -13,7 +13,7 @@ void runMultiplyingGridsTestSpherical() {
 
 	int num;
 	f_in >> num;
-	DataGrid dg0 = DataGrid(num);
+	OldDataGrid dg0 = OldDataGrid(num);
 	int in = dg0.in, out = dg0.out, size = dg0.size;
 	f_in >> curToken;
 	readArray(dg0.dtau, in + 1, out, &f_in);
@@ -35,7 +35,7 @@ void runMultiplyingGridsTestSpherical() {
 	int numIter = 15;
 	for (int j = 1; j <= numIter; j++) {
 		f_out << "j = " << j << ":\n";
-		DataGrid dg = dg0.multiplied(j);
+		OldDataGrid dg = dg0.multiplied(j);
 		int size = dg.size, in = dg.in, out = dg.out;
 		dg.print(&f_out);
 		double* gamma = new double[size];

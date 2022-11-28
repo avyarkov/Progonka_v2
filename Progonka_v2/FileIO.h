@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 
 void readArray(double* arr, int in, int out, std::istream* f_in);
 
@@ -11,8 +11,8 @@ void writeArrayEndl(double* arr, int in, int out, std::ostream* f_out);
 
 void writeArrayWithTabs(double* arr, int in, int out, std::ostream* f_out);
 
-DataGrid readDataGrid(std::istream* f_in);
-DataGrid readDataGrid(std::string fileName);
+OldDataGrid readOldDataGrid(std::istream* f_in);
+OldDataGrid readOldDataGrid(std::string fileName);
 
-DataGridNodeSources readDataGridNodeSources(std::istream* f_in);
-DataGridNodeSources readDataGridNodeSources(std::string fileName);
+OldDataGridNodeSources readOldDataGridNodeSources(std::istream* f_in);
+OldDataGridNodeSources readOldDataGridNodeSources(std::string fileName);

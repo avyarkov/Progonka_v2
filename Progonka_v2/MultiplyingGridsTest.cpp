@@ -3,7 +3,7 @@
 #include "FileIO.h"
 #include "PlaneCase.h"
 #include "Progonka.h"
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 #include "MyPlot.h"
 
 void runMultiplyingGridsTest() {
@@ -13,7 +13,7 @@ void runMultiplyingGridsTest() {
 
 	int num;
 	f_in >> num;
-	DataGrid dg0 = DataGrid(num); // g = 0 : plane case
+	OldDataGrid dg0 = OldDataGrid(num); // g = 0 : plane case
 	int in = dg0.in, out = dg0.out;
 	f_in >> curToken;
 	readArray(dg0.r, in, out, &f_in);
@@ -34,7 +34,7 @@ void runMultiplyingGridsTest() {
 	int numIter = 30;
 	for (int j = 1; j <= numIter; j++) {
 		f_out << "j = " << j << ":\n";
-		DataGrid dg = dg0.multiplied(j);
+		OldDataGrid dg = dg0.multiplied(j);
 		dg.print(&f_out);
 		Coeff coeff = getPlaneCoefficients(dg);
 		coeff.print(&f_out);

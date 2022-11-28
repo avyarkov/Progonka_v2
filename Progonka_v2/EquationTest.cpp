@@ -11,7 +11,7 @@ void runEquationTest() {
 	int num;
 	f_in.open("EquationTest_input.txt");
 	f_in >> num;
-	DataGrid dg = DataGrid(num);
+	OldDataGrid dg = OldDataGrid(num);
 	int in = dg.in, out = dg.out, size = dg.size;
 	double* Phi_P = new double[size], * Phi_M = new double[size];
 	f_in >> curToken;

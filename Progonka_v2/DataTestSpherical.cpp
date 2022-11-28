@@ -2,7 +2,7 @@
 #include "FileIO.h"
 #include "SphericalCase.h"
 #include "Progonka.h"
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 #include "MyPlot.h"
 
 void runDataTestSpherical() {
@@ -12,7 +12,7 @@ void runDataTestSpherical() {
 
 	int num;
 	f_in >> num;
-	DataGrid dg = DataGrid(num);
+	OldDataGrid dg = OldDataGrid(num);
 	int in = dg.in, out = dg.out, size = dg.size;
 	double* gamma = new double[size];
 	f_in >> curToken;

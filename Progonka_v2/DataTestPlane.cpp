@@ -2,7 +2,7 @@
 #include "FileIO.h"
 #include "PlaneCase.h"
 #include "Progonka.h"
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 #include "MyPlot.h"
 
 void runDataTestPlane() {
@@ -12,7 +12,7 @@ void runDataTestPlane() {
 
 	int num;
 	f_in >> num;
-	DataGrid dg = DataGrid(num); // g = 0 : plane case
+	OldDataGrid dg = OldDataGrid(num); // g = 0 : plane case
 	int in = dg.in, out = dg.out;
 	f_in >> curToken;
 	readArray(dg.dtau, in + 1, out, &f_in);

@@ -4,7 +4,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <cmath>
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 #include "FileIO.h"
 #include "Coeff.h"
 #include "PlaneCase.h"
@@ -14,7 +14,7 @@
 using namespace std;
 
 double* countGamma(double* D, int in, int out) {
-	double* gamma = new double[DataGrid::sizeFromOut(out)];
+	double* gamma = new double[OldDataGrid::sizeFromOut(out)];
 	for (int i = in; i <= out; i++) {
 		gamma[i] = 3.0 - 1 / D[i];
 	}
@@ -34,10 +34,10 @@ void runQuasidiffusion() {
 
 	const double w_0 = 1.0, w_1 = 0.5, w_2 = 0.2;
 	const double nu = 1;
-	DataGridNodeSources quasiDG = readDataGridNodeSources("QuasidiffusionDataGrid.txt");
+	OldDataGridNodeSources quasiDG = readOldDataGridNodeSources("QuasidiffusionOldDataGrid.txt");
 	quasiDG.updateSigma();
 	quasiDG.updateDtau();
-	DataGridNodeSources eoDG = readDataGridNodeSources("EvenOddDataGrid.txt");
+	OldDataGridNodeSources eoDG = readOldDataGridNodeSources("EvenOddOldDataGrid.txt");
 	eoDG.updateSigma();
 	eoDG.updateDtau();
 
@@ -56,13 +56,10 @@ void runQuasidiffusion() {
 	double* root = quadrature.rootsOfOrder(order);
 	double* weight = quadrature.weightsOfOrder(order);
 	for (int it = 0; it < numberOfIterations; it++) {
-		if (it == 1) {
-			cout << "d";
-		}
 		// solve Quasidiffusion equations
 		double* auxD = new double[size];
 		for (int i = in + 1; i <= out; i++) { auxD[i] = (D[i - 1] + D[i]) / 2; }
-		DataGridNodeSources curQuasiDg = quasiDG.withDividedSigma0(auxD);
+		OldDataGridNodeSources curQuasiDg = quasiDG.withDividedSigma0(auxD);
 		curQuasiDg.updateSigma();
 		curQuasiDg.updateDtau();
 		Coeff quasiCoeff = getPlaneCoefficients(curQuasiDg);
@@ -93,7 +90,7 @@ void runQuasidiffusion() {
 				Add_M[i] = nu * Sigma_s * F_M[k][i];
 			}
 			// TODO check negative roots
-			DataGridNodeSources curEODG = eoDG.toCharacteristics(root[k]).withAddedSources(Add_P, Add_M);
+			OldDataGridNodeSources curEODG = eoDG.toCharacteristics(root[k]).withAddedSources(Add_P, Add_M);
 			curEODG.updateSigma();
 			curEODG.updateDtau();
 			Coeff curCoeff = getPlaneCoefficients(curEODG);

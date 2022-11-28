@@ -1,12 +1,12 @@
 #include <iostream>
 #include <cmath>
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 #include "FileIO.h"
 
-DataGrid::DataGrid() {
+OldDataGrid::OldDataGrid() {
 }
 
-DataGrid::DataGrid(int num) {
+OldDataGrid::OldDataGrid(int num) {
 	this->num = num;
 	out = in + num;
 	size = sizeFromOut(out);
@@ -21,12 +21,12 @@ DataGrid::DataGrid(int num) {
 	B_out = -566;
 }
 
-int DataGrid::sizeFromOut(int out) {
+int OldDataGrid::sizeFromOut(int out) {
 	return out + 2;
 }
 
-void DataGrid::print(std::ostream* f_out) {
-	*f_out << "DataGrid {\n";
+void OldDataGrid::print(std::ostream* f_out) {
+	*f_out << "OldDataGrid {\n";
 	*f_out << "num=" << num << ", in=" << in << ", out=" << out << ";";
 	*f_out << "\n" << "r:\t";
 	writeArray(r, in, out, f_out);
@@ -47,24 +47,24 @@ void DataGrid::print(std::ostream* f_out) {
 	*f_out << "\n}\n";
 }
 
-void DataGrid::updateSigma() {
+void OldDataGrid::updateSigma() {
 	sigma = new double[size];
 	for (int i = in + 1; i <= out; i++) {
 		sigma[i] = sqrt(abs(sigma_0[i]) * sigma_1[i]);
 	}
 }
 
-void DataGrid::updateDtau() {
+void OldDataGrid::updateDtau() {
 	updateSigma();
 	for (int i = in + 1; i <= out; i++) {
 		dtau[i] = sigma[i] * (r[i] - r[i - 1]);
 	}
 }
 
-DataGrid DataGrid::multiplied(int k) {
+OldDataGrid OldDataGrid::multiplied(int k) {
 	updateSigma();
 	int resNum = num * k;
-	DataGrid res = DataGrid(resNum);
+	OldDataGrid res = OldDataGrid(resNum);
 	res.sigma = new double[res.size];
 	int start = res.in + 1;
 	for (int i = start; i <= res.out; i++) {
@@ -87,10 +87,10 @@ DataGrid DataGrid::multiplied(int k) {
 	return res;
 }
 
-DataGrid DataGrid::withAddedSources(double* Add_P, double* Add_M) {
+OldDataGrid OldDataGrid::withAddedSources(double* Add_P, double* Add_M) {
 	updateSigma();
 	updateDtau();
-	DataGrid res = DataGrid(num);
+	OldDataGrid res = OldDataGrid(num);
 	res.sigma = new double[res.size];
 	for (int i = in; i <= out; i++) {
 		res.r[i] = r[i];
@@ -106,11 +106,11 @@ DataGrid DataGrid::withAddedSources(double* Add_P, double* Add_M) {
 	return res;
 }
 
-DataGrid DataGrid::toCharacteristics(double mu) {
+OldDataGrid OldDataGrid::toCharacteristics(double mu) {
 	if (mu < 0) { std::cout << "negative mu!"; exit(1); }
 	updateSigma();
 	updateDtau();
-	DataGrid res = DataGrid(num);
+	OldDataGrid res = OldDataGrid(num);
 	res.r[in] = r[in];
 	res.T_P[in] = T_P[in];
 	res.T_M[in] = T_M[in];
@@ -128,10 +128,10 @@ DataGrid DataGrid::toCharacteristics(double mu) {
 	return res;
 }
 
-DataGrid DataGrid::withDividedSigma0(double* D) {
+OldDataGrid OldDataGrid::withDividedSigma0(double* D) {
 	updateSigma();
 	updateDtau();
-	DataGrid res = DataGrid(num);
+	OldDataGrid res = OldDataGrid(num);
 	res.sigma = new double[res.size];
 	for (int i = in; i <= out; i++) {
 		res.r[i] = r[i];
@@ -148,7 +148,7 @@ DataGrid DataGrid::withDividedSigma0(double* D) {
 	return res;
 }
 
-DataGridNodeSources::DataGridNodeSources(int num) {
+OldDataGridNodeSources::OldDataGridNodeSources(int num) {
 	this->num = num;
 	out = in + num;
 	size = sizeFromOut(out);
@@ -163,8 +163,8 @@ DataGridNodeSources::DataGridNodeSources(int num) {
 	B_out = -566;
 }
 
-void DataGridNodeSources::print(std::ostream* f_out) {
-	*f_out << "DataGrid {\n";
+void OldDataGridNodeSources::print(std::ostream* f_out) {
+	*f_out << "OldDataGrid {\n";
 	*f_out << "num=" << num << ", in=" << in << ", out=" << out << ";";
 	*f_out << "\n" << "r:\t";
 	writeArray(r, in, out, f_out);
@@ -185,15 +185,15 @@ void DataGridNodeSources::print(std::ostream* f_out) {
 	*f_out << "\n}\n";
 }
 
-DataGridNodeSources DataGridNodeSources::multiplied(int k) {
-	std::cout << "Can't multiply DataGridNodeSources";
+OldDataGridNodeSources OldDataGridNodeSources::multiplied(int k) {
+	std::cout << "Can't multiply OldDataGridNodeSources";
 	exit(1);
 }
 
-DataGridNodeSources DataGridNodeSources::withAddedSources(double* Add_P, double* Add_M) {
+OldDataGridNodeSources OldDataGridNodeSources::withAddedSources(double* Add_P, double* Add_M) {
 	updateSigma();
 	updateDtau();
-	DataGridNodeSources res = DataGridNodeSources(num);
+	OldDataGridNodeSources res = OldDataGridNodeSources(num);
 	res.sigma = new double[res.size];
 	for (int i = in; i <= out; i++) {
 		res.r[i] = r[i];
@@ -209,11 +209,11 @@ DataGridNodeSources DataGridNodeSources::withAddedSources(double* Add_P, double*
 	return res;
 }
 
-DataGridNodeSources DataGridNodeSources::toCharacteristics(double mu) {
+OldDataGridNodeSources OldDataGridNodeSources::toCharacteristics(double mu) {
 	if (mu < 0) { std::cout << "negative mu!"; exit(1); }
 	updateSigma();
 	updateDtau();
-	DataGridNodeSources res = DataGridNodeSources(num);
+	OldDataGridNodeSources res = OldDataGridNodeSources(num);
 	res.r[in] = r[in];
 	res.T_P[in] = T_P[in];
 	res.T_M[in] = T_M[in];
@@ -231,10 +231,10 @@ DataGridNodeSources DataGridNodeSources::toCharacteristics(double mu) {
 	return res;
 }
 
-DataGridNodeSources DataGridNodeSources::withDividedSigma0(double* D) {
+OldDataGridNodeSources OldDataGridNodeSources::withDividedSigma0(double* D) {
 	updateSigma();
 	updateDtau();
-	DataGridNodeSources res = DataGridNodeSources(num);
+	OldDataGridNodeSources res = OldDataGridNodeSources(num);
 	res.sigma = new double[res.size];
 	for (int i = in; i <= out; i++) {
 		res.r[i] = r[i];

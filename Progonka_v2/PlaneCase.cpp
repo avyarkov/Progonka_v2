@@ -1,5 +1,5 @@
 #include <cmath>
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 #include "Coeff.h"
 
 /*
@@ -8,7 +8,7 @@ Input arrays: dtau, sigma_0, sigma_1, T_P, T_M;
 Input boundary conditions: double B_in, double B_out; (considering A = 3/2 for now, maybe add later)
 Resulting coefficients are written to: el, er, kl, kr, Rl, Rr
 */
-Coeff getPlaneCoefficients(DataGrid dg) {
+Coeff getPlaneCoefficients(OldDataGrid dg) {
 	// considering g = 0: plain case
 	int in = dg.in, out = dg.out;
 	dg.updateSigma();
@@ -38,7 +38,7 @@ Coeff getPlaneCoefficients(DataGrid dg) {
 	return coeff;
 }
 
-Coeff getPlaneCoefficients(DataGridNodeSources dg) {
+Coeff getPlaneCoefficients(OldDataGridNodeSources dg) {
 	// considering g = 0: plain case
 	int in = dg.in, out = dg.out;
 	dg.updateSigma();

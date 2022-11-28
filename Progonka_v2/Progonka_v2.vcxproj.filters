@@ -42,7 +42,7 @@
     <ClCompile Include="SphericalCase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataGrid.cpp">
+    <ClCompile Include="OldDataGrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FileIO.cpp">
@@ -87,7 +87,7 @@
     <ClCompile Include="Quasidiffusion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataGridNodeSources.cpp">
+    <ClCompile Include="OldDataGridNodeSources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,7 +107,7 @@
     <ClInclude Include="Tests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataGrid.h">
+    <ClInclude Include="OldDataGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MyPlot.h">
@@ -166,10 +166,10 @@
     <Text Include="ExactTest_WolframLines.txt">
       <Filter>Resource Files\SpecificTests</Filter>
     </Text>
-    <Text Include="QuasidiffusionDataGrid.txt">
+    <Text Include="QuasidiffusionOldDataGrid.txt">
       <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
-    <Text Include="EvenOddDataGrid.txt">
+    <Text Include="EvenOddOldDataGrid.txt">
       <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
     <Text Include="Quasidiffusion_output.txt">

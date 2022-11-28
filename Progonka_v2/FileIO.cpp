@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "DataGrid.h"
+#include "OldDataGrid.h"
 
 // NB! Boundaries: [inclusive, inclusive]
 void readArray(double* arr, int in, int out, std::istream* f_in) {
@@ -27,10 +27,10 @@ void writeArrayWithTabs(double* arr, int in, int out, std::ostream* f_out) {
 	}
 }
 
-DataGrid readDataGrid(std::istream* f_in) {
+OldDataGrid readOldDataGrid(std::istream* f_in) {
 	int num;
 	*f_in >> num;
-	DataGrid dg = DataGrid(num);
+	OldDataGrid dg = OldDataGrid(num);
 	int in = dg.in, out = dg.out;
 	std::string curToken;
 	*f_in >> curToken;
@@ -50,17 +50,17 @@ DataGrid readDataGrid(std::istream* f_in) {
 	return dg;
 }
 
-DataGrid readDataGrid(std::string fileName) {
+OldDataGrid readOldDataGrid(std::string fileName) {
 	std::ifstream f_in(fileName);
-	DataGrid dg = readDataGrid(&f_in);
+	OldDataGrid dg = readOldDataGrid(&f_in);
 	f_in.close();
 	return dg;
 }
 
-DataGridNodeSources readDataGridNodeSources(std::istream* f_in) {
+OldDataGridNodeSources readOldDataGridNodeSources(std::istream* f_in) {
 	int num;
 	*f_in >> num;
-	DataGridNodeSources dg = DataGridNodeSources(num);
+	OldDataGridNodeSources dg = OldDataGridNodeSources(num);
 	int in = dg.in, out = dg.out;
 	std::string curToken;
 	*f_in >> curToken;
@@ -80,9 +80,9 @@ DataGridNodeSources readDataGridNodeSources(std::istream* f_in) {
 	return dg;
 }
 
-DataGridNodeSources readDataGridNodeSources(std::string fileName) {
+OldDataGridNodeSources readOldDataGridNodeSources(std::string fileName) {
 	std::ifstream f_in(fileName);
-	DataGridNodeSources dg = readDataGridNodeSources(&f_in);
+	OldDataGridNodeSources dg = readOldDataGridNodeSources(&f_in);
 	f_in.close();
 	return dg;
 }
