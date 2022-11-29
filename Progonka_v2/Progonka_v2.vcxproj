@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Coeff.cpp" />
+    <ClCompile Include="DataGrid.cpp" />
     <ClCompile Include="OldDataGrid.cpp" />
     <ClCompile Include="OldDataGridNodeSources.cpp" />
     <ClCompile Include="DataTestPlane.cpp" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coeff.h" />
+    <ClInclude Include="DataGrid.h" />
     <ClInclude Include="OldDataGrid.h" />
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="MyPlot.h" />
@@ -187,8 +189,8 @@
     <Text Include="MultiplyingGridsTest_output.txt" />
     <Text Include="MultiplyingGridsTestSpherical_input.txt" />
     <Text Include="Quadrature_Gauss–Legendre.txt" />
-    <Text Include="QuasidiffusionOldDataGrid.txt" />
-    <Text Include="EvenOddOldDataGrid.txt" />
+    <Text Include="QuasidiffusionDataGrid.txt" />
+    <Text Include="EvenOddDataGrid.txt" />
     <Text Include="Quasidiffusion_output.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -90,6 +90,9 @@
     <ClCompile Include="OldDataGridNodeSources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Progonka.h">
@@ -126,6 +129,9 @@
       <Filter>Header Files\pbPlots</Filter>
     </ClInclude>
     <ClInclude Include="Quasidiffusion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -166,10 +172,10 @@
     <Text Include="ExactTest_WolframLines.txt">
       <Filter>Resource Files\SpecificTests</Filter>
     </Text>
-    <Text Include="QuasidiffusionOldDataGrid.txt">
+    <Text Include="QuasidiffusionDataGrid.txt">
       <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
-    <Text Include="EvenOddOldDataGrid.txt">
+    <Text Include="EvenOddDataGrid.txt">
       <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
     <Text Include="Quasidiffusion_output.txt">

@@ -34,34 +34,33 @@ void runQuasidiffusion() {
 
 	const double w_0 = 1.0, w_1 = 0.5, w_2 = 0.2;
 	const double nu = 1;
-	OldDataGridNodeSources quasiDG = readOldDataGridNodeSources("QuasidiffusionOldDataGrid.txt");
+	DataGrid quasiDG = readDataGridCellSectionsNodeSources("QuasidiffusionDataGrid.txt");
 	quasiDG.updateSigma();
 	quasiDG.updateDtau();
-	OldDataGridNodeSources eoDG = readOldDataGridNodeSources("EvenOddOldDataGrid.txt");
+	DataGrid eoDG = readDataGridCellSectionsNodeSources("EvenOddDataGrid.txt");
 	eoDG.updateSigma();
 	eoDG.updateDtau();
 
 	int num = quasiDG.num;
 	if (num != eoDG.num) { cout << "Incorrect input: quasiDG and eoDg are of different sizes!"; exit(239); }
 	int size = quasiDG.size, in = quasiDG.in, out = quasiDG.out;
-	double Sigma_s = quasiDG.sigma_1[in + 1] - quasiDG.sigma_0[in + 1];
+	double Sigma_s = quasiDG.sigma1_r[in] - quasiDG.sigma0_r[in];
+	
 	double* D = new double[size];
 	for (int i = in; i <= out; i++) { D[i] = 1.0 / 3; }
-	double* gamma = countGamma(D, in, out);
+	//double* gamma = countGamma(D, in, out);
 	double A_in = 3.0 / 2, A_out = 3.0 / 2;
-	int numberOfIterations = 5;
+	
 	Quadrature quadrature = Quadrature("Quadrature_GaussЦLegendre.txt");
 	int order = 6;
 	int qin = order / 2, qout = order - 1;
 	double* root = quadrature.rootsOfOrder(order);
 	double* weight = quadrature.weightsOfOrder(order);
+	
+	int numberOfIterations = 5;
 	for (int it = 0; it < numberOfIterations; it++) {
 		// solve Quasidiffusion equations
-		double* auxD = new double[size];
-		for (int i = in + 1; i <= out; i++) { auxD[i] = (D[i - 1] + D[i]) / 2; }
-		OldDataGridNodeSources curQuasiDg = quasiDG.withDividedSigma0(auxD);
-		curQuasiDg.updateSigma();
-		curQuasiDg.updateDtau();
+		DataGrid curQuasiDg = quasiDG.withDividedSigma0(D);
 		Coeff quasiCoeff = getPlaneCoefficients(curQuasiDg);
 		quasiCoeff.updateBoundaries(A_in, A_out);
 		quasiCoeff.print(&cout);
@@ -83,22 +82,18 @@ void runQuasidiffusion() {
 				F_M[k][i] = calcF_M(root[k], PSI_1[i], w_1);
 			}
 			double* Add_P = new double[size], * Add_M = new double[size];
-			// TODO добавки к источиками прив€заны к узлам, а заданные источники - к €чейками
-			// »справить, помен€ть расчЄт коэффициентов в getPlaneCoefficients
 			for (int i = in; i <= out; i++) {
 				Add_P[i] = nu * Sigma_s * F_P[k][i];
 				Add_M[i] = nu * Sigma_s * F_M[k][i];
 			}
-			// TODO check negative roots
-			OldDataGridNodeSources curEODG = eoDG.toCharacteristics(root[k]).withAddedSources(Add_P, Add_M);
-			curEODG.updateSigma();
-			curEODG.updateDtau();
+			DataGrid curEODG = eoDG.toPlaneCharacteristics(root[k]).withAddedSources(Add_P, Add_M);
 			Coeff curCoeff = getPlaneCoefficients(curEODG);
 			curCoeff.updateBoundaries(1.0, 1.0);
 			Progonka(in, out, curCoeff, phi_p[k], phi_m[k]);
 			writeArrayEndl(phi_p[k], in, out, &fout);
 			writeArrayEndl(phi_m[k], in, out, &fout);
 		}
+		// Calculate D[i], A_in, A_out
 		for (int i = in; i <= out; i++) {
 			double* f2 = new double[order];
 			double* curphi = new double[order];

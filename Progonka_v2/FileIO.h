@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "OldDataGrid.h"
+#include "DataGrid.h"
 
 void readArray(double* arr, int in, int out, std::istream* f_in);
 
@@ -16,3 +17,6 @@ OldDataGrid readOldDataGrid(std::string fileName);
 
 OldDataGridNodeSources readOldDataGridNodeSources(std::istream* f_in);
 OldDataGridNodeSources readOldDataGridNodeSources(std::string fileName);
+
+DataGrid readDataGridCellSectionsNodeSources(std::istream* f_in);
+DataGrid readDataGridCellSectionsNodeSources(std::string fileName);

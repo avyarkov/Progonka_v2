@@ -5,3 +5,5 @@
 Coeff getPlaneCoefficients(OldDataGrid dg);
 
 Coeff getPlaneCoefficients(OldDataGridNodeSources dg);
+
+Coeff getPlaneCoefficients(DataGrid dg);
