@@ -181,6 +181,24 @@
     <Text Include="Quasidiffusion_output.txt">
       <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
+    <Text Include="EvenOddDataGrid_1.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
+    </Text>
+    <Text Include="EvenOddDataGrid_2.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
+    </Text>
+    <Text Include="EvenOddDataGrid_3.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
+    </Text>
+    <Text Include="QuasidiffusionDataGrid_1.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
+    </Text>
+    <Text Include="QuasidiffusionDataGrid_2.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
+    </Text>
+    <Text Include="QuasidiffusionDataGrid_3.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="plot.png">

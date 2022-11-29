@@ -192,6 +192,12 @@
     <Text Include="QuasidiffusionDataGrid.txt" />
     <Text Include="EvenOddDataGrid.txt" />
     <Text Include="Quasidiffusion_output.txt" />
+    <Text Include="EvenOddDataGrid_1.txt" />
+    <Text Include="EvenOddDataGrid_2.txt" />
+    <Text Include="EvenOddDataGrid_3.txt" />
+    <Text Include="QuasidiffusionDataGrid_1.txt" />
+    <Text Include="QuasidiffusionDataGrid_2.txt" />
+    <Text Include="QuasidiffusionDataGrid_3.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="plot.png" />

@@ -34,10 +34,10 @@ void runQuasidiffusion() {
 
 	const double w_0 = 1.0, w_1 = 0.5, w_2 = 0.2;
 	const double nu = 1;
-	DataGrid quasiDG = readDataGridCellSectionsNodeSources("QuasidiffusionDataGrid.txt");
+	DataGrid quasiDG = readDataGridCellSectionsNodeSources("QuasidiffusionDataGrid_1.txt");
 	quasiDG.updateSigma();
 	quasiDG.updateDtau();
-	DataGrid eoDG = readDataGridCellSectionsNodeSources("EvenOddDataGrid.txt");
+	DataGrid eoDG = readDataGridCellSectionsNodeSources("EvenOddDataGrid_1.txt");
 	eoDG.updateSigma();
 	eoDG.updateDtau();
 
