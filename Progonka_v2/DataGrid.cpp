@@ -102,15 +102,15 @@ DataGrid DataGrid::withAddedSources(double* Add_P, double* Add_M) {
 	updateSigma();
 	updateDtau();
 	DataGrid res = this->clone();
-	TP_r[in] += Add_P[in];
-	TM_r[in] += Add_M[in];
-	TP_l[out] += Add_P[out];
-	TM_l[out] += Add_M[out];
+	res.TP_r[in] += Add_P[in];
+	res.TM_r[in] += Add_M[in];
+	res.TP_l[out] += Add_P[out];
+	res.TM_l[out] += Add_M[out];
 	for (int i = in + 1; i <= out - 1; i++) {
-		TP_l[i] += Add_P[i];
-		TP_r[i] += Add_P[i];
-		TM_l[i] += Add_M[i];
-		TM_r[i] += Add_M[i];
+		res.TP_l[i] += Add_P[i];
+		res.TP_r[i] += Add_P[i];
+		res.TM_l[i] += Add_M[i];
+		res.TM_r[i] += Add_M[i];
 	}
 	return res;
 }

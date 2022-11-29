@@ -90,7 +90,7 @@ Coeff getPlaneCoefficients(DataGrid dg) {
 		Rl[i] = el[i] * sigma1_l[i] / pow(sigma_l[i], 2) * TP_l[i] * (cosh(dtau[i]) - 1) +
 			el[i] * TM_l[i] / sigma_l[i] * sinh(dtau[i]);
 		Rr[i] = er[i] * sigma1_r[i - 1] / pow(sigma_r[i - 1], 2) * TP_r[i - 1] * (cosh(dtau[i]) - 1) -
-			er[i] * TM_r[i - 1] / sigma_r[i] * sinh(dtau[i]);
+			er[i] * TM_r[i - 1] / sigma_r[i - 1] * sinh(dtau[i]);
 	}
 
 	// TODO: check, add chi, use the full formula
