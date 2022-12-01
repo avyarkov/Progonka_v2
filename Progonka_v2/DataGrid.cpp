@@ -6,7 +6,7 @@
 DataGrid::DataGrid(int num) {
 	this->num = num;
 	out = in + num;
-	size = sizeFromOut(out);
+	size = out + 2;
 	r = new double[size];
 	dtau = new double[size];
 	sigma0_l = new double[size];
@@ -23,13 +23,9 @@ DataGrid::DataGrid(int num) {
 	B_out = -566;
 }
 
-int DataGrid::sizeFromOut(int out) {
-	return out + 2;
-}
-
 void DataGrid::print(std::ostream* f_out) {
 	*f_out << "DataGrid {\n";
-	*f_out << "num=" << num << ", in=" << in << ", out=" << out << ";";
+	*f_out << "num = " << num << ", in = " << in << ", out = " << out;
 	*f_out << "\n" << "r:\t";
 	writeArray(r, in, out, f_out);
 	*f_out << "\n" << "dtau:\t";

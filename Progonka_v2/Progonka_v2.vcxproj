@@ -148,6 +148,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyPlot.cpp" />
     <ClCompile Include="pbPlots.cpp" />
+    <ClCompile Include="PhysicalGrid.cpp" />
     <ClCompile Include="Progonka.cpp" />
     <ClCompile Include="PlaneCase.cpp" />
     <ClCompile Include="DataTestSpherical.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="MyPlot.h" />
     <ClInclude Include="pbPlots.hpp" />
+    <ClInclude Include="PhysicalGrid.h" />
     <ClInclude Include="Quadrature.h" />
     <ClInclude Include="Quasidiffusion.h" />
     <ClInclude Include="supportLib.hpp" />

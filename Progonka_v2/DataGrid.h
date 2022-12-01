@@ -15,7 +15,6 @@ struct DataGrid {
 	double B_in, B_out;
 
 	DataGrid(int num);
-	static int sizeFromOut(int out);
 	void print(std::ostream* f_out);
 
 	void updateSigma();
