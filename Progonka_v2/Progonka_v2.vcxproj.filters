@@ -96,6 +96,9 @@
     <ClCompile Include="PhysicalGrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QuasidiffusionReed.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Progonka.h">
@@ -178,10 +181,7 @@
     <Text Include="ExactTest_WolframLines.txt">
       <Filter>Resource Files\SpecificTests</Filter>
     </Text>
-    <Text Include="QuasidiffusionDataGrid.txt">
-      <Filter>Resource Files\Qasidiffusion</Filter>
-    </Text>
-    <Text Include="EvenOddDataGrid.txt">
+    <Text Include="QuasidiffusionDataGrid_Reed.txt">
       <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
     <Text Include="Quasidiffusion_output.txt">
@@ -203,6 +203,12 @@
       <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
     <Text Include="QuasidiffusionDataGrid_3.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
+    </Text>
+    <Text Include="EvenOddDataGrid_Reed.txt">
+      <Filter>Resource Files\Qasidiffusion</Filter>
+    </Text>
+    <Text Include="Quasidiffusion_output_Reed.txt">
       <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
   </ItemGroup>

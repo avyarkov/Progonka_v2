@@ -20,3 +20,6 @@ OldDataGridNodeSources readOldDataGridNodeSources(std::string fileName);
 
 DataGrid readDataGridCellSectionsNodeSources(std::istream* f_in);
 DataGrid readDataGridCellSectionsNodeSources(std::string fileName);
+
+DataGrid readDataGridCellSectionsCellSources(std::istream* f_in);
+DataGrid readDataGridCellSectionsCellSources(std::string fileName);

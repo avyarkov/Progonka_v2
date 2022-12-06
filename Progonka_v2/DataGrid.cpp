@@ -94,21 +94,74 @@ DataGrid DataGrid::clone() {
 	return res;
 }
 
-DataGrid DataGrid::withAddedSources(double* Add_P, double* Add_M) {
+double f(double yl, double yr, int m, int k) {
+	return yl + (yr - yl) / k * m;
+}
+
+DataGrid DataGrid::multiplied(int k) {
+	updateSigma();
+	int resNum = num * k;
+	DataGrid res = DataGrid(resNum);
+	int start = res.in;
+	for (int i = start; i < res.out; i++) {
+		int j = in + (i - start) / k;
+		int m = (i - start) % k;
+		res.r[i] = f(r[j], r[j + 1], m, k);
+	}
+	res.r[res.out] = r[out];
+	for (int i = start; i <= res.out; i++) {
+		if ((i - start) % k == 0) {
+			int j = in + (i - start) / k;
+			res.sigma0_l[i] = sigma0_l[j];
+			res.sigma0_r[i] = sigma0_r[j];
+			res.sigma1_l[i] = sigma1_l[j];
+			res.sigma1_r[i] = sigma1_r[j];
+			res.sigma_l[i] = sigma_l[j];
+			res.sigma_r[i] = sigma_r[j];
+			res.TP_l[i] = TP_l[j];
+			res.TP_r[i] = TP_r[j];
+			res.TM_l[i] = TM_l[j];
+			res.TM_r[i] = TM_r[j];
+		} else {
+			int j = in + (i - start) / k;
+			int m = (i - start) % k;
+			res.sigma0_l[i] = f(sigma0_r[j], sigma0_l[j + 1], m, k);
+			res.sigma0_r[i] = res.sigma0_l[i];
+			res.sigma1_l[i] = f(sigma1_r[j], sigma1_l[j + 1], m, k);
+			res.sigma1_r[i] = res.sigma1_l[i];
+			res.sigma_l[i] = f(sigma_r[j], sigma_l[j + 1], m, k);
+			res.sigma_r[i] = res.sigma_l[i];
+			res.TP_l[i] = f(TP_r[j], TP_l[j + 1], m, k);
+			res.TP_r[i] = res.TP_l[i];
+			res.TM_l[i] = f(TM_r[j], TM_l[j + 1], m, k);
+			res.TM_r[i] = res.TM_l[i];
+		}
+	}
+	res.updateDtau();
+	res.B_in = B_in;
+	res.B_out = B_out;
+	return res;
+}
+
+DataGrid DataGrid::withAddedSources(double* AddP_l, double* AddP_r, double* AddM_l, double* AddM_r) {
 	updateSigma();
 	updateDtau();
 	DataGrid res = this->clone();
-	res.TP_r[in] += Add_P[in];
-	res.TM_r[in] += Add_M[in];
-	res.TP_l[out] += Add_P[out];
-	res.TM_l[out] += Add_M[out];
+	res.TP_r[in] += AddP_r[in];
+	res.TM_r[in] += AddM_r[in];
+	res.TP_l[out] += AddP_l[out];
+	res.TM_l[out] += AddM_l[out];
 	for (int i = in + 1; i <= out - 1; i++) {
-		res.TP_l[i] += Add_P[i];
-		res.TP_r[i] += Add_P[i];
-		res.TM_l[i] += Add_M[i];
-		res.TM_r[i] += Add_M[i];
+		res.TP_l[i] += AddP_l[i];
+		res.TP_r[i] += AddP_r[i];
+		res.TM_l[i] += AddM_l[i];
+		res.TM_r[i] += AddM_r[i];
 	}
 	return res;
+}
+
+DataGrid DataGrid::withAddedSources(double* Add_P, double* Add_M) {
+	return DataGrid::withAddedSources(Add_P, Add_P, Add_M, Add_M);
 }
 
 DataGrid DataGrid::toPlaneCharacteristics(double mu) {

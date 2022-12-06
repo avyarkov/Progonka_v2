@@ -25,5 +25,7 @@ int main() {
 
 	//runQuadratureTest();
 
-	runQuasidiffusion();
+	//runQuasidiffusion();
+
+	runQuasidiffusion_Reed();
 }

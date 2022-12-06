@@ -13,3 +13,5 @@ void runMultiplyingGridsTest();
 void runMultiplyingGridsTestSpherical();
 
 void runQuadratureTest();
+
+void runQuasidiffusion_Reed();

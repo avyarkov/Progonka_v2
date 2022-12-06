@@ -22,9 +22,9 @@ struct DataGrid {
 
 	DataGrid clone();
 
-	// TODO?
-	// DataGrid multiplied(int k);	// k > 0
+	DataGrid multiplied(int k);	// k > 0
 
+	DataGrid withAddedSources(double* AddP_l, double* AddP_r, double* AddM_l, double* AddM_r);
 	DataGrid withAddedSources(double* Add_P, double* Add_M);
 	DataGrid toPlaneCharacteristics(double mu);
 	DataGrid withDividedSigma0(double* D);
