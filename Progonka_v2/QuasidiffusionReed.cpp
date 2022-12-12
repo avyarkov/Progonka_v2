@@ -18,7 +18,7 @@ using namespace std;
 void runQuasidiffusion_Reed() {
 	ofstream fout("Quasidiffusion_output_Reed.txt");
 
-	const double w_0 = 1.0, w_1 = 0.5, w_2 = 0.2;
+	const double w_0 = 1.0, w_1 = 0.5, w_2 = 0;
 	const double nu = 1;
 	const int mult = 10;
 	DataGrid quasiDG = readDataGridCellSectionsCellSources("QuasidiffusionDataGrid_Reed.txt").multiplied(mult);
@@ -61,6 +61,7 @@ void runQuasidiffusion_Reed() {
 
 		double* PSI_0 = new double[size], * PSI_1 = new double[size];
 		Progonka(in, out, quasiCoeff, PSI_0, PSI_1);
+		for (int i = in; i <= out; i++) { PSI_0[i] /= D[i]; }
 		writeArrayEndl(PSI_0, in, out, &fout);
 		plot(curQuasiDg.r, PSI_0, in, out, "plot_Reed_" + std::to_string(it) + ".png");
 
