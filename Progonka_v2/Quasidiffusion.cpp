@@ -29,6 +29,17 @@ double calcF_M(double mu, double PSI_1, double w_1) {
 	return 3 * w_1 / 4 / M_PI * mu * PSI_1;
 }
 
+double measure(int in, int out, double* arr, double* ref) {
+	double max = -1e100;
+	for (int i = in; i <= out; i++) {
+		double cur = abs(arr[i] / ref[i] - 1);
+		if (cur > max) {
+			max = cur;
+		}
+		return max;
+	}
+}
+
 void runQuasidiffusion() {
 	ofstream fout("Quasidiffusion_output.txt");
 

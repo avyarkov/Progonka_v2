@@ -20,7 +20,7 @@ void runQuasidiffusion_Reed() {
 
 	const double w_0 = 1.0, w_1 = 0.5, w_2 = 0;
 	const double nu = 1;
-	const int mult = 10;
+	const int mult = 20;
 	DataGrid quasiDG = readDataGridCellSectionsCellSources("QuasidiffusionDataGrid_Reed.txt").multiplied(mult);
 	quasiDG.updateSigma();
 	quasiDG.updateDtau();
@@ -28,8 +28,8 @@ void runQuasidiffusion_Reed() {
 	eoDG.updateSigma();
 	eoDG.updateDtau();
 
-	quasiDG.print(&cout);
-	eoDG.print(&cout);
+	//quasiDG.print(&cout);
+	//eoDG.print(&cout);
 
 	int num = quasiDG.num;
 	if (num != eoDG.num) { cout << "Incorrect input: quasiDG and eoDg are of different sizes!"; exit(239); }
@@ -51,19 +51,25 @@ void runQuasidiffusion_Reed() {
 	double* root = quadrature.rootsOfOrder(order);
 	double* weight = quadrature.weightsOfOrder(order);
 
-	int numberOfIterations = 6;
+	int numberOfIterations = 40;
+	double** res_PSI_0 = new double* [numberOfIterations];
 	for (int it = 0; it < numberOfIterations; it++) {
 		// solve Quasidiffusion equations
 		DataGrid curQuasiDg = quasiDG.withDividedSigma0(D);
 		Coeff quasiCoeff = getPlaneCoefficients(curQuasiDg);
 		quasiCoeff.updateBoundaries(A_in, A_out);
-		quasiCoeff.print(&cout);
+		//quasiCoeff.print(&cout);
 
 		double* PSI_0 = new double[size], * PSI_1 = new double[size];
 		Progonka(in, out, quasiCoeff, PSI_0, PSI_1);
 		for (int i = in; i <= out; i++) { PSI_0[i] /= D[i]; }
+
 		writeArrayEndl(PSI_0, in, out, &fout);
-		plot(curQuasiDg.r, PSI_0, in, out, "plot_Reed_" + std::to_string(it) + ".png");
+		res_PSI_0[it] = new double[size];
+		for (int i = in; i <= out; i++) {
+			res_PSI_0[it][i] = PSI_0[i];
+		}
+		//plot(curQuasiDg.r, PSI_0, in, out, "plot_Reed_" + std::to_string(it) + ".png");
 
 		// solve Even-Odd equations for positive quadrature roots
 		double** F_P = new double* [order], ** F_M = new double* [order];
@@ -88,8 +94,8 @@ void runQuasidiffusion_Reed() {
 			Coeff curCoeff = getPlaneCoefficients(curEODG);
 			curCoeff.updateBoundaries(1.0, 1.0);
 			Progonka(in, out, curCoeff, phi_p[k], phi_m[k]);
-			writeArrayEndl(phi_p[k], in, out, &fout);
-			writeArrayEndl(phi_m[k], in, out, &fout);
+			//writeArrayEndl(phi_p[k], in, out, &fout);
+			//writeArrayEndl(phi_m[k], in, out, &fout);
 		}
 		// Calculate D[i], A_in, A_out
 		for (int i = in; i <= out; i++) {
@@ -115,7 +121,24 @@ void runQuasidiffusion_Reed() {
 				A_out = integral1 / integral2;
 			}
 		}
+		fout << "D: ";
 		writeArrayEndl(D, in, out, &fout);
-		fout << A_in << " " << A_out << endl << "~~~~~~~~~~~" << endl;
+		fout << "A_in/A_out: " << A_in << " " << A_out << endl << "~~~~~~~~~~~" << endl;
 	}
+
+	int lastIteration = numberOfIterations - 1;
+	double* measures = new double[numberOfIterations], * logMeasures = new double[numberOfIterations];
+	for (int it = 0; it < numberOfIterations; it++) {
+		for (int i = in; i <= out; i++) {
+			double curMeasure = measure(in, out, res_PSI_0[it], res_PSI_0[lastIteration]);
+			measures[it] = curMeasure;
+			logMeasures[it] = log10(curMeasure);
+		}
+	}
+	fout << "/////////////////" << endl;
+	fout << "res_PSI_0 @ lastIteration: ";  writeArrayEndl(res_PSI_0[lastIteration], in, out, &fout);
+	fout << "measures: "; writeArrayEndl(measures, 0, lastIteration, &fout);
+	fout << "logMeasures: "; writeArrayEndl(logMeasures, 0, lastIteration, &fout);
+	plot(range(0, lastIteration), measures, 0, lastIteration, "plot_Reed_measures.png");
+	plot(range(0, lastIteration), logMeasures, 0, lastIteration - 1, "plot_Reed_logMeasures.png");
 }
