@@ -18,7 +18,7 @@ using namespace std;
 void runQuasidiffusion_Reed() {
 	ofstream fout("Quasidiffusion_output_Reed.txt");
 
-	const double w_0 = 1.0, w_1 = 0.5, w_2 = 0;
+	const double w_0 = 1.0, w_1 = 0, w_2 = 0;
 	const double nu = 1;
 	const int mult = 20;
 	DataGrid quasiDG = readDataGridCellSectionsCellSources("QuasidiffusionDataGrid_Reed.txt").multiplied(mult);
