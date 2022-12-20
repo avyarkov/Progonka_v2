@@ -203,9 +203,6 @@
     <Text Include="QuasidiffusionDataGrid_3.txt" />
     <Text Include="Quasidiffusion_output_Reed.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="plot.png" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -212,9 +212,4 @@
       <Filter>Resource Files\Qasidiffusion</Filter>
     </Text>
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="plot.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
 </Project>

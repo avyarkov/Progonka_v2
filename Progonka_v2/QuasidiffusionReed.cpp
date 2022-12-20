@@ -71,7 +71,7 @@ void runQuasidiffusion_Reed() {
 		for (int i = in; i <= out; i++) {
 			res_PSI_0[it][i] = PSI_0[i];
 		}
-		if (it <= 7) plot(curQuasiDg.r, PSI_0, in, out, "plot_Reed_" + std::to_string(it) + ".png");
+		if (it <= 4) plot(curQuasiDg.r, PSI_0, in, out, "plot_Reed_" + std::to_string(it) + ".png");
 
 		// solve Even-Odd equations for positive quadrature roots
 		double** F_P = new double* [order], ** F_M = new double* [order];
@@ -129,11 +129,12 @@ void runQuasidiffusion_Reed() {
 	}
 
 	int lastIteration = numberOfIterations - 1;
+	plot(quasiDG.r, res_PSI_0[lastIteration], in, out, "plot_Reed_" + std::to_string(lastIteration) + ".png");
 	double* measures = new double[numberOfIterations], * logMeasures = new double[numberOfIterations];
 	for (int it = 0; it < numberOfIterations - 1; it++) {
 		double curMeasure = measure(in, out, res_PSI_0[it], res_PSI_0[lastIteration]);
 		measures[it] = curMeasure;
-		logMeasures[it] = curMeasure <= 0 ? -50 : log10(curMeasure);
+		logMeasures[it] = curMeasure <= 0 ? -30 : log10(curMeasure);
 	}
 	fout << "/////////////////" << endl;
 	fout << "res_PSI_0 @ lastIteration: ";  writeArrayEndl(res_PSI_0[lastIteration], in, out, &fout);
